@@ -1,0 +1,7 @@
+C:\Users\sari\Documents\year3\Irox\Irox\bin\Debug\Irox.exe.config
+C:\Users\sari\Documents\year3\Irox\Irox\bin\Debug\Irox.exe
+C:\Users\sari\Documents\year3\Irox\Irox\bin\Debug\Irox.pdb
+C:\Users\sari\Documents\year3\Irox\Irox\obj\Debug\Irox.csprojResolveAssemblyReference.cache
+C:\Users\sari\Documents\year3\Irox\Irox\obj\Debug\Irox.csproj.CoreCompileInputs.cache
+C:\Users\sari\Documents\year3\Irox\Irox\obj\Debug\Irox.exe
+C:\Users\sari\Documents\year3\Irox\Irox\obj\Debug\Irox.pdb
