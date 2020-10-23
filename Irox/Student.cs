@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using System.Collections;
 namespace Irox
 {
     public struct test
@@ -31,7 +31,7 @@ namespace Irox
 
         }
     }
-    class Student : Person
+    class Student : Person,IEnumerable,IEnumerator
     {
         public static int cnt;
         private int grade;
@@ -53,6 +53,8 @@ namespace Irox
             get { return grade; }
             set { grade = value; }
         }
+
+        public object Current =>test[currenti].Name;
 
         static Student()
         {
@@ -80,6 +82,40 @@ namespace Irox
         public override string ToString()
         {
             return base.ToString() + " grede " + this.grade;
+        }
+
+        
+        public override void printDetails()
+        {
+            base.print(this);
+            Console.WriteLine(" grade "+this.grade);
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return (IEnumerator)this;
+        }
+
+        public bool MoveNext()
+        {
+            if (currenti < test.Length - 1)
+            {
+                ++currenti;
+                return true;
+            }
+            return false;
+        }
+
+        public void Reset()
+        {
+            currenti = -1;
+        }
+        public void printTest()
+        {
+            foreach (test t in test)
+            {
+                Console.WriteLine(t.Name);
+            }
         }
     }
 }

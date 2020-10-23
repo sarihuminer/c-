@@ -8,6 +8,14 @@ namespace Irox
 {
     class Program
     {
+        public static void printStudents(List<Student>sl)
+        {
+            foreach (Student s in sl)
+            {
+                Console.WriteLine(s);
+            }
+        }
+        
         static void isAstring(Object obj)
         {
             if (obj.GetType().Equals(typeof(System.String)))
@@ -41,6 +49,8 @@ namespace Irox
             }
 
         }
+
+       public delegate void Mydelegate();
         static void Main(string[] args)
         {
             //reflection
@@ -55,6 +65,7 @@ namespace Irox
             Student s3 = new Student("888", "nechama", 45646546, 1);
             Student s4 = new Student("99", "sarita", 213131, 3);
 
+            
             //test
             test test1 = new test("c#", 100);
             test test2 = new test("sql", 90);
@@ -63,12 +74,25 @@ namespace Irox
             s.AddTest(test1);
             s.AddTest(test2);
             s.AddTest(test3);
+
+            Console.BackgroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.White;
+            //ienumurable//enamurator
+            s.printTest();
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.BackgroundColor = ConsoleColor.Black;
+
             //teachers
             Teacher t = new Teacher("315013565", "moria", 035793876, 800000);
             Teacher t1 = new Teacher("2222222", "sani", 84984984, 9600);
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine(t);
             Console.WriteLine(t1);
+
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Teacher t2 = t + t1;
+            Console.WriteLine(t2);
 
             listStud.Add(s);
             listStud.Add(s1);
@@ -80,7 +104,8 @@ namespace Irox
             foreach (Student student in listStud)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("id {0} name {1} phone {2} grade {3}", student.Id, student.Name, student.Phone, student.Grade);
+                student.printDetails();
+               //Console.WriteLine("id {0} name {1} phone {2} grade {3}", student.Id, student.Name, student.Phone, student.Grade);
                 for (int i = 0; i < student.Test.Length&& student.Test[i].Name!=null; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
@@ -97,10 +122,22 @@ namespace Irox
             //edit details student
             Console.WriteLine("the studet is before {0} ", s);
 
-            s.EditDetails("sari", 054859755);
+            s.UpdateBaseDetails("sari", 054859755);
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("the studet is after {0} ", s);
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            printStudents(listStud);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            //delegate
+            Console.WriteLine("*****************************delegate************");
+            Mydelegate d = new Mydelegate(s.printDetails);
+            Mydelegate d1 = new Mydelegate(s.printTest);
+            d += d1;
+            
+            d();
             Console.Read();
+           // Person p = new Person();
         }
     }
 }
