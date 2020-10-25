@@ -4,18 +4,68 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Xml;
+using System.Xml.Linq;
+
 namespace Irox
 {
     class Program
     {
-        public static void printStudents(List<Student>sl)
+        //xml
+        public static void ReadXmlFile(string namefieldTOSort, string orderby, string filterField, string value, char o)
+        {
+            try
+            {
+
+                string spath = @"C:\Users\sari\Documents\year3\Irox\Irox\XMLFile1.xml";
+                string spath_New = @"C:\Users\sari\Documents\year3\Irox\Irox\XMLFile2.xml";
+
+                XDocument doc = XDocument.Load(spath);
+                var parent = doc.Descendants("products").Single().Elements();
+                List<XElement> xmlFiltr = new List<XElement>();
+                switch (o)
+                {
+                    case '<':
+                        xmlFiltr = parent.Where(q => int.Parse(q.Attribute(filterField).Value) < int.Parse(value)).ToList();
+                        break;
+                    case '>':
+                        xmlFiltr = parent.Where(q => int.Parse(q.Attribute(filterField).Value) > int.Parse(value)).ToList();
+                        break;
+                    case '=':
+                        xmlFiltr = parent.Where(q => q.Attribute(filterField).Value == value).ToList();
+                        break;
+
+                }
+
+                if (orderby == "acending")
+                    xmlFiltr = xmlFiltr.OrderBy(tuple => tuple.Element(namefieldTOSort).Value).ToList();
+                else
+                    xmlFiltr = xmlFiltr.OrderByDescending(tuple => tuple.Element(namefieldTOSort).Value).ToList();
+
+                //write to file
+                XDocument doc2 = XDocument.Load(spath_New);
+                doc2.Descendants("products").Single().Add(xmlFiltr);
+                doc2.Save(spath_New);
+            }
+            catch
+            {
+
+            }
+
+
+        }
+
+
+
+
+        public static void printStudents(List<Student> sl)
         {
             foreach (Student s in sl)
             {
                 Console.WriteLine(s);
             }
         }
-        
+
         static void isAstring(Object obj)
         {
             if (obj.GetType().Equals(typeof(System.String)))
@@ -50,9 +100,13 @@ namespace Irox
 
         }
 
-       public delegate void Mydelegate();
+        public delegate void Mydelegate();
         static void Main(string[] args)
         {
+            //xml
+            ReadXmlFile("name", "acending", "id", "2", '>');
+
+
             //reflection
             //Rreflection();
 
@@ -65,7 +119,7 @@ namespace Irox
             Student s3 = new Student("888", "nechama", 45646546, 1);
             Student s4 = new Student("99", "sarita", 213131, 3);
 
-            
+
             //test
             test test1 = new test("c#", 100);
             test test2 = new test("sql", 90);
@@ -105,8 +159,8 @@ namespace Irox
             {
                 Console.ForegroundColor = ConsoleColor.Green;
                 student.printDetails();
-               //Console.WriteLine("id {0} name {1} phone {2} grade {3}", student.Id, student.Name, student.Phone, student.Grade);
-                for (int i = 0; i < student.Test.Length&& student.Test[i].Name!=null; i++)
+                //Console.WriteLine("id {0} name {1} phone {2} grade {3}", student.Id, student.Name, student.Phone, student.Grade);
+                for (int i = 0; i < student.Test.Length && student.Test[i].Name != null; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Cyan;
 
@@ -114,7 +168,7 @@ namespace Irox
 
 
                 }
-                
+
             }
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("the studets sum is {0} ", Student.cnt);
@@ -134,10 +188,10 @@ namespace Irox
             Mydelegate d = new Mydelegate(s.printDetails);
             Mydelegate d1 = new Mydelegate(s.printTest);
             d += d1;
-            
+
             d();
             Console.Read();
-           // Person p = new Person();
+            // Person p = new Person();
         }
     }
 }

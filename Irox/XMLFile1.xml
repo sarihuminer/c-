@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<products>
+  <prod id="1">
+    <name>coffi</name>
+    <cost>5.9</cost>
+  </prod>
+  <prod id="2">
+    <name>tea</name>
+    <cost>2.8</cost>
+  </prod>
+  <prod id="2">
+    <name>dftt</name>
+    <cost>3.8</cost>
+  </prod>
+  <prod id="3">
+    <name>chacao</name>
+    <cost>4.3</cost>
+  </prod>
+  <prod id="3">
+    <name>afreso</name>
+    <cost>6.3</cost>
+  </prod>
+</products>
+

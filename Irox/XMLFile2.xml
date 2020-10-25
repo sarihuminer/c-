@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<products>
+  <prod id="3">
+    <name>afreso</name>
+    <cost>6.3</cost>
+  </prod>
+  <prod id="3">
+    <name>chacao</name>
+    <cost>4.3</cost>
+  </prod>
+</products>
